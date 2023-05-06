@@ -1,0 +1,24 @@
+{
+  "name": "biblioteca-backend",
+  "version": "1.0.0",
+  "description": "Backend del proyecto BPLI",
+  "main": "index.js",
+  "scripts": {
+    "test": "Jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulSV123/Biblioteca-Backend.git"
+  },
+  "keywords": [
+    "Angular",
+    "y",
+    "Node.js"
+  ],
+  "author": "Paul Diego Saravia Velasquez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaulSV123/Biblioteca-Backend/issues"
+  },
+  "homepage": "https://github.com/PaulSV123/Biblioteca-Backend#readme"
+}
