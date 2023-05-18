@@ -1,16 +1,15 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('Estanteria')
-export class Estanteria {
+export class Prestamo {
   @PrimaryGeneratedColumn('uuid')
-  id_estante: string;
+  id_prestamo: string;
 
   @Column({ length: 50 })
-  id_sección: string;
+  id_libro: string;
 
   @Column({ length: 50 })
-  nombre: string;
+  fecha_prestamo: string;
 
-  @Column({ type: 'integer' })
-  capacidad: number;
+  @Column({ length: 50 })
+  fecha_devolucion: string;
 }

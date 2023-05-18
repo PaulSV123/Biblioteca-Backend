@@ -6,6 +6,8 @@ import { EstanteriaModule } from './estanteria/estanteria.module';
 import { ColeccionModule } from './coleccion/coleccion.module';
 import { DesarcargasModule } from './desarcargas/desarcargas.module';
 import { SeccionModule } from './seccion/seccion.module';
+import { BibliotecaModule } from './biblioteca/biblioteca.module';
+import { PrestamoModule } from './prestamo/prestamo.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { SeccionModule } from './seccion/seccion.module';
     ColeccionModule,
     DesarcargasModule,
     SeccionModule,
+    BibliotecaModule,
+    PrestamoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
