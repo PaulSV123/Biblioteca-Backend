@@ -1,3 +1,4 @@
+import { Seccion } from 'src/seccion/entities/seccion.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('Biblioteca')
@@ -19,4 +20,7 @@ export class Biblioteca {
 
   @Column({ length: 50 })
   horario_cierre: string;
+
+  @OneToMany(() => Seccion, (biblioteca) => biblioteca.biblioteca)
+  secciones: Seccion[];
 }

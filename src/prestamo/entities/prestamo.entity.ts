@@ -5,9 +5,6 @@ export class Prestamo {
   id_prestamo: string;
 
   @Column({ length: 50 })
-  id_libro: string;
-
-  @Column({ length: 50 })
   fecha_prestamo: string;
 
   @Column({ length: 50 })

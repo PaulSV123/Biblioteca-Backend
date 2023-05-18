@@ -4,6 +4,6 @@ import { BibliotecaController } from './biblioteca.controller';
 
 @Module({
   controllers: [BibliotecaController],
-  providers: [BibliotecaService]
+  providers: [BibliotecaService],
 })
 export class BibliotecaModule {}

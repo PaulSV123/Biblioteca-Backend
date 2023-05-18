@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { BibliotecaService } from './biblioteca.service';
 import { CreateBibliotecaDto } from './dto/create-biblioteca.dto';
 import { UpdateBibliotecaDto } from './dto/update-biblioteca.dto';
@@ -8,27 +19,30 @@ export class BibliotecaController {
   constructor(private readonly bibliotecaService: BibliotecaService) {}
 
   @Post()
-  create(@Body() createBibliotecaDto: CreateBibliotecaDto) {
-    return this.bibliotecaService.create(createBibliotecaDto);
+  async create(@Body() createBibliotecaDto: CreateBibliotecaDto) {
+    return await this.bibliotecaService.create(createBibliotecaDto);
   }
 
   @Get()
-  findAll() {
-    return this.bibliotecaService.findAll();
+  async findAll() {
+    return await this.bibliotecaService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.bibliotecaService.findOne(+id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    return await this.bibliotecaService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBibliotecaDto: UpdateBibliotecaDto) {
-    return this.bibliotecaService.update(+id, updateBibliotecaDto);
+  async update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateBibliotecaDto: UpdateBibliotecaDto,
+  ) {
+    return await this.bibliotecaService.update(id, updateBibliotecaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.bibliotecaService.remove(+id);
+  async remove(@Param('id', ParseUUIDPipe) id: string) {
+    return await this.bibliotecaService.remove(id);
   }
 }

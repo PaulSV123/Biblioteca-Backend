@@ -6,9 +6,6 @@ export class Coleccion {
   id_libro: string;
 
   @Column({ length: 50 })
-  id_estante: string;
-
-  @Column({ length: 50 })
   titulo: string;
 
   @Column({ length: 50 })

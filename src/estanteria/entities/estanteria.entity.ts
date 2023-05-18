@@ -6,9 +6,6 @@ export class Estanteria {
   id_estante: string;
 
   @Column({ length: 50 })
-  id_sección: string;
-
-  @Column({ length: 50 })
   nombre: string;
 
   @Column({ type: 'integer' })

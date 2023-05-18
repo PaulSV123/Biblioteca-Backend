@@ -1,26 +1,53 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { v4 as uuid } from 'uuid';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBibliotecaDto } from './dto/create-biblioteca.dto';
 import { UpdateBibliotecaDto } from './dto/update-biblioteca.dto';
+import { Biblioteca } from './entities/biblioteca.entity';
 
 @Injectable()
 export class BibliotecaService {
-  create(createBibliotecaDto: CreateBibliotecaDto) {
-    return 'This action adds a new biblioteca';
+  constructor(
+    @InjectRepository(Biblioteca)
+    private readonly BibliotecaRepository: Repository<Biblioteca>,
+  ) {}
+
+  async create(createBibliotecaDto: CreateBibliotecaDto) {
+    const create_biblioteca = this.BibliotecaRepository.create({
+      id_biblioteca: uuid(),
+      nombre: createBibliotecaDto.nombre,
+      direccion: createBibliotecaDto.direccion,
+      telefono: createBibliotecaDto.telefono,
+      horario_apertura: createBibliotecaDto.horario_apertura,
+      horario_cierre: createBibliotecaDto.horario_cierre,
+    });
+    const detalle_factura_new = await this.BibliotecaRepository.save(
+      create_biblioteca,
+    );
+    return detalle_factura_new;
   }
 
-  findAll() {
-    return `This action returns all biblioteca`;
+  async findAll() {
+    return await this.BibliotecaRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} biblioteca`;
+  async findOne(id: string): Promise<Biblioteca> {
+    const biblioteca = await this.BibliotecaRepository.findOne({
+      where: {
+        id_biblioteca: id,
+      },
+    });
+    if (!biblioteca)
+      throw new NotFoundException(`Factura Cabecera details ${id} not found)`);
+    return biblioteca;
   }
 
-  update(id: number, updateBibliotecaDto: UpdateBibliotecaDto) {
-    return `This action updates a #${id} biblioteca`;
+  async update(id: string, updateBibliotecaDto: UpdateBibliotecaDto) {
+    await this.BibliotecaRepository.update(id, updateBibliotecaDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} biblioteca`;
+  async remove(id: string) {
+    await this.BibliotecaRepository.delete(id);
   }
 }
