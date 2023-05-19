@@ -8,6 +8,7 @@ import { DesarcargasModule } from './desarcargas/desarcargas.module';
 import { SeccionModule } from './seccion/seccion.module';
 import { BibliotecaModule } from './biblioteca/biblioteca.module';
 import { PrestamoModule } from './prestamo/prestamo.module';
+import { Biblioteca } from './biblioteca/entities/biblioteca.entity';
 
 @Module({
   imports: [
@@ -17,18 +18,13 @@ import { PrestamoModule } from './prestamo/prestamo.module';
       port: 5432,
       username: 'postgres',
       password: 'masterkill',
-      database: 'postgres',
-      entities: [EstanteriaModule, ColeccionModule, DesarcargasModule],
+      database: 'biblioteca',
+      entities: [Biblioteca],
       synchronize: true,
     }),
-    EstanteriaModule,
-    ColeccionModule,
-    DesarcargasModule,
-    SeccionModule,
     BibliotecaModule,
-    PrestamoModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

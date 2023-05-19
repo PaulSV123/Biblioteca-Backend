@@ -15,6 +15,6 @@ export class Seccion {
   @Column({ length: 50 })
   nombre: string;
 
-  @ManyToOne(() => Biblioteca, (seccion) => seccion.secciones)
-  biblioteca: Biblioteca;
+  /* @ManyToOne(() => Biblioteca, (seccion) => seccion.secciones)
+  id_biblioteca: Biblioteca; */
 }

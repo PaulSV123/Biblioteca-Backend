@@ -39,7 +39,7 @@ export class BibliotecaService {
       },
     });
     if (!biblioteca)
-      throw new NotFoundException(`Factura Cabecera details ${id} not found)`);
+      throw new NotFoundException(`Biblioteca details ${id} not found)`);
     return biblioteca;
   }
 

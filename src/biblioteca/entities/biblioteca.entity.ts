@@ -1,7 +1,7 @@
 import { Seccion } from 'src/seccion/entities/seccion.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('Biblioteca')
+@Entity('BibliotecaGeneral')
 export class Biblioteca {
   @PrimaryGeneratedColumn('uuid')
   id_biblioteca: string;
@@ -20,7 +20,7 @@ export class Biblioteca {
 
   @Column({ length: 50 })
   horario_cierre: string;
-
-  @OneToMany(() => Seccion, (biblioteca) => biblioteca.biblioteca)
-  secciones: Seccion[];
 }
+
+/* @OneToMany(() => Seccion, (biblioteca) => biblioteca.id_biblioteca)
+  secciones: Seccion[]; */
