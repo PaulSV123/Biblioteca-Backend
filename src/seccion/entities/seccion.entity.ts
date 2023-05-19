@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('Seccion')
+@Entity('Secciones')
 export class Seccion {
   @PrimaryGeneratedColumn('uuid')
   id_seccion: string;
@@ -15,6 +15,6 @@ export class Seccion {
   @Column({ length: 50 })
   nombre: string;
 
-  /* @ManyToOne(() => Biblioteca, (seccion) => seccion.secciones)
-  id_biblioteca: Biblioteca; */
+  @ManyToOne(() => Biblioteca, (seccion) => seccion.secciones)
+  general: Biblioteca;
 }

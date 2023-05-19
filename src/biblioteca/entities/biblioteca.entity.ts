@@ -20,7 +20,7 @@ export class Biblioteca {
 
   @Column({ length: 50 })
   horario_cierre: string;
-}
 
-/* @OneToMany(() => Seccion, (biblioteca) => biblioteca.id_biblioteca)
-  secciones: Seccion[]; */
+  @OneToMany(() => Seccion, (biblioteca) => biblioteca.general)
+  secciones: Seccion[];
+}

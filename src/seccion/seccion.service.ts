@@ -1,26 +1,55 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { v4 as uuid } from 'uuid';
 import { CreateSeccionDto } from './dto/create-seccion.dto';
 import { UpdateSeccionDto } from './dto/update-seccion.dto';
+import { Seccion } from './entities/seccion.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm/repository/Repository';
+import { BibliotecaService } from 'src/biblioteca/biblioteca.service';
 
 @Injectable()
 export class SeccionService {
-  create(createSeccionDto: CreateSeccionDto) {
-    return 'This action adds a new seccion';
+  constructor(
+    @InjectRepository(Seccion)
+    private readonly SeccionRepository: Repository<Seccion>,
+    private readonly BiblioteGeneralcaService: BibliotecaService,
+  ) {}
+
+  async create(createSeccionDto: CreateSeccionDto) {
+    const biblioteca_general = await this.BiblioteGeneralcaService.findOne(
+      createSeccionDto.biblioteca_id,
+    );
+    const create_seccion_body = this.SeccionRepository.create({
+      id_seccion: uuid(),
+      nombre: createSeccionDto.nombre,
+      general: biblioteca_general,
+    });
+    const create_seccion = await this.SeccionRepository.save(
+      create_seccion_body,
+    );
+    return create_seccion;
   }
 
-  findAll() {
-    return `This action returns all seccion`;
+  async findAll() {
+    return await this.SeccionRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} seccion`;
+  async findOne(id: string): Promise<Seccion> {
+    const biblioteca = await this.SeccionRepository.findOne({
+      where: {
+        id_seccion: id,
+      },
+    });
+    if (!biblioteca)
+      throw new NotFoundException(`Biblioteca details ${id} not found)`);
+    return biblioteca;
   }
 
-  update(id: number, updateSeccionDto: UpdateSeccionDto) {
-    return `This action updates a #${id} seccion`;
+  async update(id: string, updateSeccionDto: UpdateSeccionDto) {
+    await this.SeccionRepository.update(id, updateSeccionDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} seccion`;
+  async remove(id: string) {
+    await this.SeccionRepository.delete(id);
   }
 }

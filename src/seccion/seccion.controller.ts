@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { SeccionService } from './seccion.service';
 import { CreateSeccionDto } from './dto/create-seccion.dto';
@@ -16,27 +17,30 @@ export class SeccionController {
   constructor(private readonly seccionService: SeccionService) {}
 
   @Post()
-  create(@Body() createSeccionDto: CreateSeccionDto) {
-    return this.seccionService.create(createSeccionDto);
+  async create(@Body() createSeccionDto: CreateSeccionDto) {
+    return await this.seccionService.create(createSeccionDto);
   }
 
   @Get()
-  findAll() {
-    return this.seccionService.findAll();
+  async findAll() {
+    return await this.seccionService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.seccionService.findOne(+id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    return await this.seccionService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSeccionDto: UpdateSeccionDto) {
-    return this.seccionService.update(+id, updateSeccionDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateSeccionDto: UpdateSeccionDto,
+  ) {
+    return await this.seccionService.update(id, updateSeccionDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.seccionService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.seccionService.remove(id);
   }
 }
