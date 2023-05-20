@@ -1,4 +1,5 @@
 import { Estanteria } from 'src/estanteria/entities/estanteria.entity';
+import { Prestamo } from 'src/prestamo/entities/prestamo.entity';
 import {
   Column,
   Entity,
@@ -29,4 +30,7 @@ export class Coleccion {
 
   @ManyToOne(() => Estanteria, (estanteria) => estanteria.libros)
   estanteria_general: Estanteria;
+
+  @OneToMany(() => Prestamo, (prestamos) => prestamos.coleccion_libros)
+  prestamos: Prestamo;
 }
