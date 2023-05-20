@@ -11,6 +11,7 @@ import { PrestamoModule } from './prestamo/prestamo.module';
 import { Biblioteca } from './biblioteca/entities/biblioteca.entity';
 import { Seccion } from './seccion/entities/seccion.entity';
 import { Estanteria } from './estanteria/entities/estanteria.entity';
+import { Coleccion } from './coleccion/entities/coleccion.entity';
 
 @Module({
   imports: [
@@ -21,12 +22,13 @@ import { Estanteria } from './estanteria/entities/estanteria.entity';
       username: 'postgres',
       password: 'masterkill',
       database: 'biblioteca',
-      entities: [Biblioteca, Seccion, Estanteria],
+      entities: [Biblioteca, Seccion, Estanteria, Coleccion],
       synchronize: true,
     }),
     BibliotecaModule,
     SeccionModule,
     EstanteriaModule,
+    ColeccionModule,
   ],
   controllers: [],
   providers: [],

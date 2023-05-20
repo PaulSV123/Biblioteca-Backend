@@ -1,3 +1,4 @@
+import { Coleccion } from 'src/coleccion/entities/coleccion.entity';
 import { Seccion } from 'src/seccion/entities/seccion.entity';
 import {
   Column,
@@ -20,4 +21,7 @@ export class Estanteria {
 
   @ManyToOne(() => Seccion, (seccion) => seccion.estanteria)
   seccion_general: Seccion;
+
+  @OneToMany(() => Coleccion, (coleccion) => coleccion.estanteria_general)
+  libros: Coleccion;
 }

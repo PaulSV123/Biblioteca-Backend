@@ -1,10 +1,16 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsString, IsNumber } from 'class-validator';
 
 export class CreateColeccionDto {
   @IsString()
   estante_id: string;
   @IsString()
-  nombre: string;
+  titulo: string;
+  @IsString()
+  autor: string;
+  @IsString()
+  editorial: string;
   @IsNumber()
-  capacidad: number;
+  anio_publicacion: number;
+  @IsString()
+  genero: string;
 }

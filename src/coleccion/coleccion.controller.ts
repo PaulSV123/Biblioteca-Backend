@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ColeccionService } from './coleccion.service';
 import { CreateColeccionDto } from './dto/create-coleccion.dto';
@@ -16,30 +17,30 @@ export class ColeccionController {
   constructor(private readonly coleccionService: ColeccionService) {}
 
   @Post()
-  create(@Body() createColeccionDto: CreateColeccionDto) {
-    return this.coleccionService.create(createColeccionDto);
+  async create(@Body() createColeccionDto: CreateColeccionDto) {
+    return await this.coleccionService.create(createColeccionDto);
   }
 
   @Get()
-  findAll() {
-    return this.coleccionService.findAll();
+  async findAll() {
+    return await this.coleccionService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.coleccionService.findOne(+id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    return await this.coleccionService.findOne(id);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateColeccionDto: UpdateColeccionDto,
   ) {
-    return this.coleccionService.update(+id, updateColeccionDto);
+    return await this.coleccionService.update(id, updateColeccionDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.coleccionService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.coleccionService.remove(id);
   }
 }
