@@ -44,7 +44,7 @@ export class ColeccionService {
       },
     });
     if (!libros)
-      throw new NotFoundException(`Biblioteca details ${id} not found)`);
+      throw new NotFoundException(`Coleccion details ${id} not found)`);
     return libros;
   }
 

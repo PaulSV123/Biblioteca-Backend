@@ -42,7 +42,7 @@ export class EstanteriaService {
       },
     });
     if (!estanteria)
-      throw new NotFoundException(`Biblioteca details ${id} not found)`);
+      throw new NotFoundException(`Estanteria details ${id} not found)`);
     return estanteria;
   }
 

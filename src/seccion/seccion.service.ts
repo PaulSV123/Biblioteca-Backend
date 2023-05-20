@@ -41,7 +41,7 @@ export class SeccionService {
       },
     });
     if (!biblioteca)
-      throw new NotFoundException(`Biblioteca details ${id} not found)`);
+      throw new NotFoundException(`Seccion details ${id} not found)`);
     return biblioteca;
   }
 

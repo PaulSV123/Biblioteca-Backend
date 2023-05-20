@@ -32,7 +32,7 @@ import { Prestamo } from './prestamo/entities/prestamo.entity';
     ColeccionModule,
     PrestamoModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

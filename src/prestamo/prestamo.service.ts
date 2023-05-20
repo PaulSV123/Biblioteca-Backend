@@ -42,7 +42,7 @@ export class PrestamoService {
       },
     });
     if (!prestamo)
-      throw new NotFoundException(`Biblioteca details ${id} not found)`);
+      throw new NotFoundException(`Prestamo details ${id} not found)`);
     return prestamo;
   }
 
