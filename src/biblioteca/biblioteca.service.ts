@@ -44,10 +44,10 @@ export class BibliotecaService {
   }
 
   async update(id: string, updateBibliotecaDto: UpdateBibliotecaDto) {
-    await this.BibliotecaRepository.update(id, updateBibliotecaDto);
+    return await this.BibliotecaRepository.update(id, updateBibliotecaDto);
   }
 
   async remove(id: string) {
-    await this.BibliotecaRepository.delete(id);
+    return await this.BibliotecaRepository.delete(id);
   }
 }

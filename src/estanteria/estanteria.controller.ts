@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { EstanteriaService } from './estanteria.service';
 import { CreateEstanteriaDto } from './dto/create-estanteria.dto';
 import { UpdateEstanteriaDto } from './dto/update-estanteria.dto';
@@ -8,27 +17,30 @@ export class EstanteriaController {
   constructor(private readonly estanteriaService: EstanteriaService) {}
 
   @Post()
-  create(@Body() createEstanteriaDto: CreateEstanteriaDto) {
-    return this.estanteriaService.create(createEstanteriaDto);
+  async create(@Body() createEstanteriaDto: CreateEstanteriaDto) {
+    return await this.estanteriaService.create(createEstanteriaDto);
   }
 
   @Get()
-  findAll() {
-    return this.estanteriaService.findAll();
+  async findAll() {
+    return await this.estanteriaService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.estanteriaService.findOne(+id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    return await this.estanteriaService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstanteriaDto: UpdateEstanteriaDto) {
-    return this.estanteriaService.update(+id, updateEstanteriaDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateEstanteriaDto: UpdateEstanteriaDto,
+  ) {
+    return await this.estanteriaService.update(id, updateEstanteriaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.estanteriaService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.estanteriaService.remove(id);
   }
 }

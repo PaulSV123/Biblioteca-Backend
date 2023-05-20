@@ -1,26 +1,56 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { v4 as uuid } from 'uuid';
 import { CreateEstanteriaDto } from './dto/create-estanteria.dto';
 import { UpdateEstanteriaDto } from './dto/update-estanteria.dto';
+import { Estanteria } from './entities/estanteria.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { SeccionService } from 'src/seccion/seccion.service';
 
 @Injectable()
 export class EstanteriaService {
-  create(createEstanteriaDto: CreateEstanteriaDto) {
-    return 'This action adds a new estanteria';
+  constructor(
+    @InjectRepository(Estanteria)
+    private readonly EstanteriaRepository: Repository<Estanteria>,
+    private readonly SeccionGeneralService: SeccionService,
+  ) {}
+
+  async create(createEstanteriaDto: CreateEstanteriaDto) {
+    const estanteria_general = await this.SeccionGeneralService.findOne(
+      createEstanteriaDto.seccion_id,
+    );
+    const create_estanteria_body = this.EstanteriaRepository.create({
+      id_estante: uuid(),
+      nombre: createEstanteriaDto.nombre,
+      capacidad: createEstanteriaDto.capacidad,
+      seccion_general: estanteria_general,
+    });
+    const create_estanteria = await this.EstanteriaRepository.save(
+      create_estanteria_body,
+    );
+    return create_estanteria;
   }
 
-  findAll() {
-    return `This action returns all estanteria`;
+  async findAll() {
+    return await this.EstanteriaRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} estanteria`;
+  async findOne(id: string) {
+    const estanteria = await this.EstanteriaRepository.findOne({
+      where: {
+        id_estante: id,
+      },
+    });
+    if (!estanteria)
+      throw new NotFoundException(`Biblioteca details ${id} not found)`);
+    return estanteria;
   }
 
-  update(id: number, updateEstanteriaDto: UpdateEstanteriaDto) {
-    return `This action updates a #${id} estanteria`;
+  async update(id: string, updateEstanteriaDto: UpdateEstanteriaDto) {
+    return await this.EstanteriaRepository.update(id, updateEstanteriaDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} estanteria`;
+  async remove(id: string) {
+    return await this.EstanteriaRepository.delete(id);
   }
 }

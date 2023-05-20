@@ -1,4 +1,5 @@
 import { Biblioteca } from 'src/biblioteca/entities/biblioteca.entity';
+import { Estanteria } from 'src/estanteria/entities/estanteria.entity';
 import {
   Column,
   Entity,
@@ -17,4 +18,7 @@ export class Seccion {
 
   @ManyToOne(() => Biblioteca, (seccion) => seccion.secciones)
   general: Biblioteca;
+
+  @OneToMany(() => Estanteria, (estanteria) => estanteria.seccion_general)
+  estanteria: Estanteria[];
 }

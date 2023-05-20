@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Seccion } from 'src/seccion/entities/seccion.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('Estanteria')
 export class Estanteria {
@@ -10,4 +17,7 @@ export class Estanteria {
 
   @Column({ type: 'integer' })
   capacidad: number;
+
+  @ManyToOne(() => Seccion, (seccion) => seccion.estanteria)
+  seccion_general: Seccion;
 }

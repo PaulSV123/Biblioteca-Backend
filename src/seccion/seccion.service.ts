@@ -46,10 +46,10 @@ export class SeccionService {
   }
 
   async update(id: string, updateSeccionDto: UpdateSeccionDto) {
-    await this.SeccionRepository.update(id, updateSeccionDto);
+    return await this.SeccionRepository.update(id, updateSeccionDto);
   }
 
   async remove(id: string) {
-    await this.SeccionRepository.delete(id);
+    return await this.SeccionRepository.delete(id);
   }
 }
